@@ -10,7 +10,7 @@ http://iotdevice.php.xdomain.jp/
 
 ## How does this work
 By clicking the ON/OFF button, Ajax(javascript) POST method is sent to "controlState.php".The PHP writes the state to stateLog.txt.
-Ajax does scheduled GET method to "getTemp.php". The php reads current temperature written in tempLog.txt.(This log file is updated by your IoT device) 
+Ajax excecutes scheduled GET method to "getTemp.php". The php reads current temperature written in tempLog.txt.(This log file is updated by your IoT device) 
 
 # Connections to the IoT device
 ## how to access to the ON/OFF state
