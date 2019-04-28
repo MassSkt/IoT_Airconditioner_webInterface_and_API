@@ -1,23 +1,27 @@
-# ArduinoとESP-WROOM-02でLチカ
-ICS MEDIA記事「[Arduinoと数百円のWi-Fiモジュールで爆安IoTをはじめよう](https://ics.media/entry/10457)」にて解説しています。
+﻿# About
+This application is web application and API for IoT module.
+You can access to this application by uploading all these files to a certain web (PHP) server.
 
-# 構成
-Arduino UNO R3にESP-WROOM-02をWi-Fiモジュールとしてシリアル通信で接続。  
-Webブラウザのボタンをタップすることにより、ON/OFF情報がPHPへ送信されPHPと同階層の「ledLog.txt」に値が保持されます。その値をArduinoから一定間隔(サンプルでは200ミリ秒)ごとに取得し、ONならLEDを点灯させるという仕組みです。
+## interface
+You can change ON/OFF state by clicking the button.
+Templerature is updated every 1sec.
 
-## フォルダー構成
-```
-151217_arduino_ESP-WROOM-02_v1
-├── arduino
-|   └── ESP-WROOM-02
-|       └── ESP-WROOM-02.ino --- Arduinoスケッチ
-└── html
-|   ├── css -------------------- css
-|   ├── index.html ------------- 操作用HTML
-|   ├── js --------------------- JavaScript
-|   ├── ledGet.php ------------- 値を保存するPHP
-|   ├── ledLog.txt ------------- 値が保存されるテキストファイル
-|   └── ledSet.php ------------- 保存された値を取得するPHP
-|   
-└── README.md ------------------ このドキュメントが書いているファイル
-```
+http://iotdevice.php.xdomain.jp/
+
+## How does this work
+By clicking the ON/OFF button, Ajax(javascript) POST method is sent to "controlState.php".The PHP writes the state to stateLog.txt.
+Ajax does scheduled GET method to "getTemp.php". The php reads current temperature written in tempLog.txt.(This log file is updated by your IoT device) 
+
+# Connections to the IoT device
+## how to access to the ON/OFF state
+GET method to the following URL enables you to get current ON/OFF state.
+http://iotdevice.php.xdomain.jp/stateGet.php
+
+## How to register current temperature
+
+GET method with temperature parameter registers the current temperature.
+
+e.g.
+http://iotdevice.php.xdomain.jp/writeTemp.php?temperature=40
+
+PHP writeTemp dumps the current Temperature to tempLog.txt 
